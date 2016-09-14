@@ -114,7 +114,7 @@ export default class SlateEditor extends Component {
 ```
 
 ## Example Youtube block
-- [Youtube-Block](https://github.com/bkniffler/slate-mate/blob/master/docs/youtube-block.js)
+- [youtube-block](https://github.com/bkniffler/slate-mate/blob/master/docs/youtube-block.js)
 ```jsx
 import React, { Component, PropTypes } from 'react';
 import { useBlockBase, useBlockResize, useBlockAlign, useBlockToolbar } from 'slate-mate';
