@@ -18,7 +18,7 @@ const getStyle = align => {
   };
 };
 
-export default options => Block => {
+export default (options = {}) => Block => {
   const { ratio, relative } = options;
   return class AlignmentDecorator extends Component {
     static propTypes = {

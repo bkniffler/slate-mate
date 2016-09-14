@@ -4,19 +4,20 @@ Documentation not quite ready yet!
 
 ## Editor decorators
 Most decorators will get options through decorator initialization arguments AND through the props.
-- **state** (accept a raw json value, manages state, calls onChange)
-- **block** (adds empty lines after blocks, accept 'blockTypes'-object through props and use it to construct schema nodes and sidebar items)
-- **toolbar** (medium like inline toolbar)
-- **sidebar** (+ on the side of empty lines to add atomic blocks)
-- **auto-markdown** (initialize lists with '-' or titles with '#')
+- [state](https://github.com/bkniffler/slate-mate/blob/master/src/editor-decorators/state.js) (accept a raw json value, manages state, calls onChange)
+- [block](https://github.com/bkniffler/slate-mate/blob/master/src/editor-decorators/blocks.js) (adds empty lines after blocks, accept 'blockTypes'-object through props and use it to construct schema nodes and sidebar items)
+- [toolbar](https://github.com/bkniffler/slate-mate/blob/master/src/editor-decorators/toolbar.js) (medium like inline toolbar)
+- [sidebar](https://github.com/bkniffler/slate-mate/blob/master/src/editor-decorators/sidebar.js) (+ on the side of empty lines to add atomic blocks)
+- [auto-markdown](https://github.com/bkniffler/slate-mate/blob/master/src/editor-decorators/auto-markdown.js) (initialize lists with '-' or titles with '#')
 
 ## Block decorators
-- **base** (exposes `setData` and `getData` props for easy block data and `isFocused` prop)
-- **toolbar** (render a block toolbar from actions, either automatically or manually via `manual: true` option and `setToolbarPosition`)
-- **align** (set alignment toolbar-actions, provide alignment styles, expose `setAlignment` and `alignment` prop)
-- **resize** (make a block resizable, either with aspect ratio via `ratio` option or freely)
+- [base](https://github.com/bkniffler/slate-mate/blob/master/src/block-decorators/base.js) (exposes `setData` and `getData` props for easy block data and `isFocused` prop)
+- [toolbar](https://github.com/bkniffler/slate-mate/blob/master/src/block-decorators/toolbar.js) (render a block toolbar from actions, either automatically or manually via `manual: true` option and `setToolbarPosition`)
+- [align](https://github.com/bkniffler/slate-mate/blob/master/src/block-decorators/align.js) (set alignment toolbar-actions, provide alignment styles, expose `setAlignment` and `alignment` prop)
+- [resize](https://github.com/bkniffler/slate-mate/blob/master/src/block-decorators/resize.js) (make a block resizable, either with aspect ratio via `ratio` option or freely)
 
 ## Example editor
+- [Editor](https://github.com/bkniffler/slate-mate/blob/master/docs/editor.js)
 ```jsx
 import { Editor, Mark } from 'slate';
 import React, { Component, PropTypes } from 'react';
@@ -24,6 +25,9 @@ import { withState, withSidebar, withToolbar, withAutoMarkdown, useBlocks } from
 
 const options = {
   defaultNode: 'paragraph',
+  blockTypes: {
+    'youtube-block': YoutubeBlock,
+  },
   toolbarMarks: [
     { type: 'bold', icon: 'bold' },
     { type: 'italic', icon: 'italic' },
@@ -109,7 +113,8 @@ export default class SlateEditor extends Component {
 }
 ```
 
-## Example block
+## Example Youtube block
+- [Youtube-Block](https://github.com/bkniffler/slate-mate/blob/master/docs/youtube-block.js)
 ```jsx
 import React, { Component, PropTypes } from 'react';
 import { useBlockBase, useBlockResize, useBlockAlign, useBlockToolbar } from 'slate-mate';
@@ -127,8 +132,8 @@ const actions = props => [{
   active: false,
 }];
 
-@useBlockBase
-@useBlockAlign({ })
+@useBlockBase()
+@useBlockAlign()
 @useBlockResize({ ratio: 7 / 4 })
 @useBlockToolbar({ actions })
 export default class YoutubeBlock extends Component {

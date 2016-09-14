@@ -1,5 +1,10 @@
+import YoutubeBlock from './youtube-block';
+
 export default {
   defaultNode: 'paragraph',
+  blockTypes: {
+    'youtube-block': YoutubeBlock,
+  },
   toolbarMarks: [
     { type: 'bold', icon: 'bold' },
     { type: 'italic', icon: 'italic' },

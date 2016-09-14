@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default Block => props => {
+export default options => Block => props => {
   const { node, editor, state } = props;
   const isFocused = state.selection.hasEdgeIn(node);
   const setData = data => {
