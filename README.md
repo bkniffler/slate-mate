@@ -3,17 +3,18 @@ Slate medium-like editor with exposed decorators and plugins.
 Documentation not quite ready yet!
 
 ## Editor decorators
-- state decorator (accept a raw json value, manages state, calls onChange)
-- block decorator (adds empty lines after blocks, accept 'blockTypes'-object through props and use it to construct schema nodes and sidebar items)
-- toolbar decorator (medium like inline toolbar)
-- sidebar decorator (+ on the side of empty lines to add atomic blocks)
-- auto-markdown decorator (initialize lists with '-' or titles with '#')
+Most decorators will get options through decorator initialization arguments AND through the props.
+- **state** (accept a raw json value, manages state, calls onChange)
+- **block** (adds empty lines after blocks, accept 'blockTypes'-object through props and use it to construct schema nodes and sidebar items)
+- **toolbar** (medium like inline toolbar)
+- **sidebar** (+ on the side of empty lines to add atomic blocks)
+- **auto-markdown** (initialize lists with '-' or titles with '#')
 
 ## Block decorators
-- base decorator (exposes `setData` and `getData` props for easy block data and `isFocused` prop)
-- toolbar decorator (render a block toolbar from actions, either automatically or manually via `manual: true` option and `setToolbarPosition`)
-- align decorator (set alignment toolbar-actions, provide alignment styles, expose `setAlignment` and `alignment` prop)
-- resize decorator (make a block resizable, either with aspect ratio via `ratio` option or freely)
+- **base** (exposes `setData` and `getData` props for easy block data and `isFocused` prop)
+- **toolbar** (render a block toolbar from actions, either automatically or manually via `manual: true` option and `setToolbarPosition`)
+- **align** (set alignment toolbar-actions, provide alignment styles, expose `setAlignment` and `alignment` prop)
+- **resize** (make a block resizable, either with aspect ratio via `ratio` option or freely)
 
 ## Example editor
 ```jsx
