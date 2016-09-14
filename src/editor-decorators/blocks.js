@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 
 export default (options = {}) => {
-  const { marks, nodes } = options;
+  let { marks, nodes, blockTypes } = options;
+  if (!blockTypes) blockTypes = {};
   return Editor => class SlateBlocksDecorator extends Component {
     static propTypes = {
       sidebarTypes: PropTypes.array,
@@ -13,14 +14,14 @@ export default (options = {}) => {
     }
     static defaultProps = {
       plugins: [],
+      blockTypes: {},
     }
     onBeforeChange = (state) => {
       const { document } = state;
-      const { blockTypes } = this.props;
-      if (!blockTypes) return undefined;
+      const newBlockTypes = { ...blockTypes, ...this.props.blockTypes };
       const blocks = document.getBlocks();
       const last = blocks.last();
-      if (Object.keys(blockTypes).indexOf(last.type) === -1) return undefined;
+      if (Object.keys(newBlockTypes).indexOf(last.type) === -1) return undefined;
 
       const normalized = state
         .transform()
@@ -37,12 +38,13 @@ export default (options = {}) => {
       return normalized;
     }
     render() {
-      const { blockTypes, sidebarTypes } = this.props;
+      const { sidebarTypes } = this.props;
       const plugins = [...this.props.plugins, this];
       const newNodes = {
         ...(nodes || {}),
         ...(this.props.nodes || {}),
-        ...(blockTypes || {}),
+        ...this.props.blockTypes,
+        ...blockTypes,
       };
       const newMarks = {
         ...(marks || {}),
@@ -50,8 +52,12 @@ export default (options = {}) => {
       };
       const newSidebarTypes = [
         ...(sidebarTypes || []),
-        ...Object.keys(blockTypes || {}).map(key => ({ type: key, icon: blockTypes[key].icon, atomic: true })),
+        ...Object.keys(blockTypes).map(key => ({ type: key, icon: blockTypes[key].icon, atomic: true })),
+        ...Object.keys(this.props.blockTypes).map(key => ({ type: key, icon: this.props.blockTypes[key].icon, atomic: true })),
       ];
+
+      console.log(newSidebarTypes);
+
       return (
         <Editor
           {...this.props}

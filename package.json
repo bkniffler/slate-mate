@@ -8,7 +8,8 @@
     "npm": "3.x.x"
   },
   "scripts": {
-    "start": "cd core & npm run start",
+    "start": "node server",
+    "build": "NODE_ENV=production node server",
     "patch": "npm version patch --force & npm publish",
     "stats": "analyze-bundle-size stats.json",
     "watch": "gulp watch"
