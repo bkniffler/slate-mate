@@ -35,20 +35,20 @@ export default options => Block => {
     }
     render() {
       const { getData } = this.props;
-      const align = getData('align');
+      const alignment = getData('align');
       const style = {
         ...this.props.style,
-        ...getStyle(align),
+        ...getStyle(alignment),
       };
 
       const actions = [
-        { type: 'align.left', icon: 'align-left', toggle: () => this.setAlignment('left'), active: align === 'left' },
-        { type: 'align.center', icon: 'align-center', toggle: () => this.setAlignment(), active: !align },
-        { type: 'align.right', icon: 'align-right', toggle: () => this.setAlignment('right'), active: align === 'right' },
+        { type: 'align.left', icon: 'align-left', toggle: () => this.setAlignment('left'), active: alignment === 'left' },
+        { type: 'align.center', icon: 'align-center', toggle: () => this.setAlignment(), active: !alignment },
+        { type: 'align.right', icon: 'align-right', toggle: () => this.setAlignment('right'), active: alignment === 'right' },
       ];
 
       return (
-        <Block {...this.props} actions={actions} style={style} align={align} setAlignment={this.setAlignment} />
+        <Block {...this.props} actions={actions} style={style} alignment={alignment} setAlignment={this.setAlignment} />
       );
     }
   };
