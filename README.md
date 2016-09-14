@@ -3,7 +3,7 @@
 Large parts of the code is based on @ianstormtaylor's excellent examples, so props to him.
 Also, it's been a breeze to work with slate, since the API is extremely well thought through. Give it a try!
 
-The purpose of this library is to provide a ready-to-use editor, as well as easy to use decorators for slate and atomic blocks, to help you get started as easily as possible!
+The purpose of this library is to provide a ready-to-use editor, as well as easy to use decorators for slate and atomic blocks, to help you get started as quickly as possible!
 **Documentation not quite ready yet!**
 
 ## Editor decorators
