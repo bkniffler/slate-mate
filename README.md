@@ -151,10 +151,6 @@ export default class YoutubeBlock extends Component {
     attributes: PropTypes.object,
     getData: PropTypes.func,
   }
-  static title = 'Youtube';
-  static icon = 'youtube';
-  static category = 'Media';
-
   render() {
     const { style, getData, className, children, isFocused, attributes } = this.props;
     const url = getData('url', defaultVideo);
