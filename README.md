@@ -1,4 +1,6 @@
 # slate-mate
+Demo: [https://bkniffler.github.io/slate-mate/](https://bkniffler.github.io/slate-mate/)
+
 [Slate](https://github.com/ianstormtaylor/slate) medium-like editor with exposed decorators and plugins.
 Large parts of the code is based on @ianstormtaylor's excellent examples, so props to him.
 Also, it's been a breeze to work with slate, since the API is extremely well thought through. Give it a try!
