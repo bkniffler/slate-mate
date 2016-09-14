@@ -1,0 +1,22 @@
+{
+  "name": "slate-mate",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./lib",
+  "engines": {
+    "node": "5.x.x",
+    "npm": "3.x.x"
+  },
+  "scripts": {
+    "start": "cd core & npm run start",
+    "patch": "npm version patch --force & npm publish",
+    "stats": "analyze-bundle-size stats.json",
+    "watch": "gulp watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cryogon/powr.git"
+  },
+  "author": "",
+  "license": "MIT"
+}
