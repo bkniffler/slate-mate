@@ -23,13 +23,8 @@ Most decorators will get options through decorator initialization arguments AND 
 - [resize](https://github.com/bkniffler/slate-mate/blob/master/src/block-decorators/resize.js) (make a block resizable, either with aspect ratio via `ratio` option or freely)
 
 ## Structure
-- `/app` contains the example project with example blocks. That's what your app might look like!
+- `/app` contains the example project with example blocks. [That's](https://github.com/bkniffler/slate-mate/blob/master/app/app.js) what your app might look like!
 - `/src` contains the sourcecode for decorators and the ready-to-use editor, as well as .less styles
-
-## POIs
-- [Usage example](https://github.com/bkniffler/slate-mate/blob/master/app/app.js)
-- [Usage example](https://github.com/bkniffler/slate-mate/blob/master/app/app.js)
-- [youtube-block](https://github.com/bkniffler/slate-mate/blob/master/docs/youtube-block.js)
 
 ## Example custom editor
 [editor](https://github.com/bkniffler/slate-mate/blob/master/src/editor/index.js)
