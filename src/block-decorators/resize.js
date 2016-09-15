@@ -54,7 +54,7 @@ export default options => Block => {
         width: `${width}px`,
       };
 
-      const children = [
+      const children = editor.readOnly ? this.props.children : [
         this.props.children,
         resize && coverOnResize ? <Cover key="resizableCover" style={style} children={children} /> : null,
         <DraggableCore
@@ -67,10 +67,7 @@ export default options => Block => {
         </DraggableCore>
       ];
 
-      const inner = <Block {...this.props} style={style} children={children} />;
-
-      if (editor.readOnly) return inner;
-      return inner;
+      return <Block {...this.props} style={style} children={children} />;
     }
   };
 };
