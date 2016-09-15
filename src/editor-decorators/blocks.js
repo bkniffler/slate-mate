@@ -56,8 +56,6 @@ export default (options = {}) => {
         ...Object.keys(this.props.blockTypes).map(key => ({ type: key, icon: this.props.blockTypes[key].icon, atomic: true })),
       ];
 
-      console.log(newSidebarTypes);
-
       return (
         <Editor
           {...this.props}

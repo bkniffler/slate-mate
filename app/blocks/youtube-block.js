@@ -3,20 +3,20 @@ import { useBlockBase, useBlockResize, useBlockAlign, useBlockToolbar } from 'sl
 
 const defaultVideo = 'https://www.youtube.com/embed/zalYJacOhpo';
 const actions = props => [{
-  type: 'youtube.url',
+  type: 'youtube.src',
   icon: 'picture-o',
   toggle: () => {
     const { setData, getData } = props;
-    const currentUrl = getData('url') || defaultVideo;
-    const url = window.prompt('URL', currentUrl);
-    if (url) setData({ url });
+    const currentUrl = getData('src') || defaultVideo;
+    const src = window.prompt('URL', currentUrl);
+    if (src) setData({ src });
   },
   active: false,
 }];
 
 @useBlockBase()
 @useBlockAlign()
-@useBlockResize({ ratio: 7 / 4 })
+@useBlockResize({ ratio: 7 / 4, coverOnResize: true })
 @useBlockToolbar({ actions })
 export default class YoutubeBlock extends Component {
   static propTypes = {
@@ -33,19 +33,22 @@ export default class YoutubeBlock extends Component {
 
   render() {
     const { style, getData, className, children, isFocused, attributes } = this.props;
-    const url = getData('url', defaultVideo);
+    const src = getData('src', defaultVideo);
 
     const styles = {
       backgroundColor: 'gray',
-      width: '100%',
-      height: '100%',
       position: 'relative',
+      zIndex: 2,
       ...style,
+    };
+
+    const innerStyle = {
+      display: 'block',
     };
 
     return (
       <div {...attributes} style={styles} className={className} data-block-active={isFocused}>
-        <iframe width="100%" height="100%" src={url} frameBorder="0" allowFullScreen />
+        <iframe width="100%" height="100%" src={src} frameBorder="0" allowFullScreen style={innerStyle} />
         {children}
       </div>
     );

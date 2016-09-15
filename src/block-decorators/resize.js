@@ -1,9 +1,13 @@
 import React, { Component, PropTypes } from 'react';
-import { Resizable } from 'react-resizable';
+import { DraggableCore } from 'react-draggable';
 import 'react-resizable/css/styles.css';
 
+const Cover = ({ children, style }) => (
+  <div style={{ backgroundColor: 'black', position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 3 }}>{children}</div>
+);
+
 export default options => Block => {
-  const { ratio, relative } = options;
+  const { ratio, relative, coverOnResize } = options;
   return class ResizeableDecorator extends Component {
     static propTypes = {
       getData: PropTypes.func,
@@ -28,13 +32,17 @@ export default options => Block => {
     onResizeStart = () => {
       this.setState({ resize: true, ...this.getSize() });
     }
-    onResizeStop = (event, { size }) => {
+    onResizeStop = (event, { node, deltaX, deltaY }) => {
       const { setData } = this.props;
-      setData({ width: size.width, height: size.height });
+      const width = this.state.width + deltaX;
+      const height = this.state.height + deltaY;
+      setData({ width, height });
       this.setState({ resize: false, width: null, height: null });
     }
-    onResize = (event, { size }) => {
-      this.setState(this.getSize(size));
+    onResize = (event, { node, deltaX, deltaY }) => {
+      const width = this.state.width + deltaX;
+      const height = this.state.height + deltaY;
+      this.setState(this.getSize({ width, height }));
     }
     render() {
       const { editor } = this.props;
@@ -45,25 +53,24 @@ export default options => Block => {
         height: `${height}px`,
         width: `${width}px`,
       };
-      const inner = resize
-        ? <div style={{ backgroundColor: 'black', ...style }} />
-        : <Block {...this.props} style={style} />;
+
+      const children = [
+        this.props.children,
+        resize && coverOnResize ? <Cover key="resizableCover" style={style} children={children} /> : null,
+        <DraggableCore
+          key="resizableHandle"
+          onStop={this.onResizeStop}
+          onStart={this.onResizeStart}
+          onDrag={this.onResize}
+        >
+          <span className="react-resizable-handle" />
+        </DraggableCore>
+      ];
+
+      const inner = <Block {...this.props} style={style} children={children} />;
 
       if (editor.readOnly) return inner;
-      return (
-        <Resizable
-          width={width}
-          height={height}
-          handleSize={[20, 20]}
-          minConstraints={[100, 100]}
-          onResize={this.onResize}
-          onResizeStart={this.onResizeStart}
-          onResizeStop={this.onResizeStop}
-          draggableOpts={{ enableUserSelectHack: false }}
-        >
-          {inner}
-        </Resizable>
-      );
+      return inner;
     }
   };
 };

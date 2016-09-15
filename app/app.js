@@ -1,10 +1,12 @@
 import React from 'react';
-import Editor from './editor/editor';
+import { Editor } from 'slate-mate';
+import { options, initialState } from './editor';
+import classNames from 'classnames';
 
 export default class Example extends React.Component {
+  state = { view: null, data: initialState }
   render() {
-    const view = 'edit';
-    const data = null;
+    const { view, data } = this.state;
     return (
       <div className="flex-container">
         <div className="head">
@@ -12,29 +14,27 @@ export default class Example extends React.Component {
           <a className="github-button" href="https://github.com/bkniffler/slate-mate/" target="_blank">
             View on Github
           </a>
-          <button className={"button" + (view === 'json' ? ' active' : '') } onClick={() => this.setState({ view: 'json' }) }>
+          <button className={classNames('button', { active: view === 'json' })} onClick={() => this.setState({ view: 'json' }) }>
             See JSON
           </button>
-          <button className={"button" + (view === 'edit' ? ' active' : '') } onClick={() => this.setState({ view: 'edit' }) }>
+          <button className={classNames('button', { active: !view })} onClick={() => this.setState({ view: null }) }>
             See Editor
           </button>
-          <button className="button" onClick={this.save}>
-            Save to localstorage
+          <button className="button" onClick={(v) => this.setState({ data: null }) }>
+            Clear
           </button>
-        <button className="button" onClick={(v) => this.setState({ data: null }) }>
-          Clear
-        </button>
-      </div>
-      <div className="container-content" style={{ display: view === 'json' ? 'block' : 'none' }}>
-        <pre style={{ whiteSpace: 'pre-wrap', width: '750px', margin: 'auto' }}>
-          {JSON.stringify(data, null, 3) }
-        </pre>
-      </div>
+        </div>
+        <div className="container-content" style={{ display: view === 'json' ? 'block' : 'none' }}>
+          <pre style={{ whiteSpace: 'pre-wrap', width: '750px', margin: 'auto' }}>
+            {JSON.stringify(data, null, 2)}
+          </pre>
+        </div>
         <div className="container-content" style={{ display: view !== 'json' ? 'block' : 'none' }}>
           <div className="TeXEditor-root">
             <div className="TeXEditor-editor">
               <Editor
-                onChange={data => console.log('CHANGED') }
+                {...options}
+                onChange={data => this.setState({ data }) }
                 value={data}
               />
             </div>

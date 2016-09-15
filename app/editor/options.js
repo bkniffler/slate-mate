@@ -1,10 +1,10 @@
 import React from 'react';
-import YoutubeBlock from './youtube-block';
+import * as Blocks from '../blocks';
 
 export default {
   defaultNode: 'paragraph',
   blockTypes: {
-    'youtube-block': YoutubeBlock,
+    ...Blocks,
   },
   toolbarMarks: [
     { type: 'bold', icon: 'bold' },

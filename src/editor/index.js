@@ -1,13 +1,12 @@
 import { Editor, Mark } from 'slate';
 import React, { Component, PropTypes } from 'react';
-import { withState, withSidebar, withToolbar, withAutoMarkdown, useBlocks } from 'slate-mate';
-import options from './default-options';
+import { withState, withSidebar, withToolbar, withAutoMarkdown, useBlocks } from '../editor-decorators';
 
 @withState()
-@useBlocks(options)
-@withAutoMarkdown(options)
-@withToolbar(options)
-@withSidebar(options)
+@useBlocks()
+@withAutoMarkdown()
+@withToolbar()
+@withSidebar()
 export default class SlateEditor extends Component {
   static propTypes = {
     readOnly: PropTypes.bool,

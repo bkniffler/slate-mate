@@ -6,13 +6,13 @@ const devPort = port + 1;
 module.exports = () => ({
   port: port,
   root: path.resolve(__dirname),
-  app: path.resolve(__dirname, 'docs', 'app.js'),
+  app: path.resolve(__dirname, 'app', 'app.js'),
   cssModules: false,
   alias: {
     'slate-mate': path.resolve(__dirname, 'lib'),
   },
   assets: [
-    path.resolve(__dirname, 'docs', 'assets'),
+    path.resolve(__dirname, 'docs'),
   ],
   url: isDebug ? `http://localhost:${port}` : 'https://slate-mate.herokuapps.com',
 });
