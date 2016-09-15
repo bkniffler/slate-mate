@@ -56,7 +56,7 @@ export default (options = {}) => {
       const onMouseDown = e => this.onClickBlock(e, type);
 
       return (
-        <span key={type} className="toolbar-item" onMouseDown={onMouseDown} data-active={isActive}>
+        <span key={type} className="slate-toolbar-item" onMouseDown={onMouseDown} data-active={isActive}>
           <i className={`fa fa-${icon}`} />
         </span>
       );
@@ -78,7 +78,7 @@ export default (options = {}) => {
       const onMouseDown = e => this.onClickMark(e, type);
 
       return (
-        <span key={type} className="toolbar-item" onMouseDown={onMouseDown} data-active={isActive}>
+        <span key={type} className="slate-toolbar-item" onMouseDown={onMouseDown} data-active={isActive}>
           <i className={`fa fa-${icon}`} />
         </span>
       );
@@ -92,7 +92,7 @@ export default (options = {}) => {
       // const isOpen = editorState.isExpanded && editorState.isFocused;
       return (
         <Portal isOpened onOpen={this.onOpen} key="toolbar-0">
-          <div className="toolbar">
+          <div className="slate-toolbar">
             {theToolbarMarks.map(this.renderMarkButton)}
             {theToolbarTypes.map(this.renderBlockButton)}
           </div>

@@ -19,7 +19,7 @@ const getStyle = align => {
 };
 
 export default (options = {}) => Block => {
-  const { ratio, relative } = options;
+  const { ratio, relative, actions } = options;
   return class AlignmentDecorator extends Component {
     static propTypes = {
       getData: PropTypes.func,
@@ -41,14 +41,14 @@ export default (options = {}) => Block => {
         ...getStyle(alignment),
       };
 
-      const actions = [
+      const alignActions = actions === false ? [] : [
         { type: 'align.left', icon: 'align-left', toggle: () => this.setAlignment('left'), active: alignment === 'left' },
         { type: 'align.center', icon: 'align-center', toggle: () => this.setAlignment(), active: !alignment },
         { type: 'align.right', icon: 'align-right', toggle: () => this.setAlignment('right'), active: alignment === 'right' },
       ];
 
       return (
-        <Block {...this.props} actions={actions} style={style} alignment={alignment} setAlignment={this.setAlignment} />
+        <Block {...this.props} actions={alignActions} style={style} alignment={alignment} setAlignment={this.setAlignment} />
       );
     }
   };

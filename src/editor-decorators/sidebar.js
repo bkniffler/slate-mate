@@ -57,7 +57,7 @@ export default (options = {}) => {
       const isActive = hasBlock(value, type);
       const onMouseDown = e => this.onClickBlock(e, type, atomic);
       return (
-        <div onMouseDown={onMouseDown} data-active={isActive} key={type} className="sidebar-item">
+        <div onMouseDown={onMouseDown} data-active={isActive} key={type} className="slate-sidebar-item">
           {type}
         </div>
       );
@@ -69,9 +69,9 @@ export default (options = {}) => {
       const theSidebarTypes = [...sidebarTypes, ...this.props.sidebarTypes];
       return (
         <Portal isOpened onOpen={this.onOpenSidebar} key="sidebar-0">
-          <div className="sidebar">
-            <i className="fa fa-plus sidebar-icon" />
-            <div className="sidebar-menu">
+          <div className="slate-sidebar">
+            <i className="fa fa-plus slate-sidebar-icon" />
+            <div className="slate-sidebar-menu">
               {theSidebarTypes.map(this.renderButton)}
             </div>
           </div>

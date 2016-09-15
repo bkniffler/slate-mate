@@ -1,5 +1,4 @@
 import injector from 'react-frame-aware-selection-plugin';
-import './style.less';
 injector();
 
 export { useBlockBase, useBlockResize, useBlockAlign, useBlockToolbar } from './block-decorators';

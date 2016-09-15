@@ -1,12 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { DraggableCore } from 'react-draggable';
-import 'react-resizable/css/styles.css';
 
 const Cover = ({ children, style }) => (
   <div style={{ backgroundColor: 'black', position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 3 }}>{children}</div>
 );
 
-export default options => Block => {
+export default (options = {}) => Block => {
   const { ratio, relative, coverOnResize } = options;
   return class ResizeableDecorator extends Component {
     static propTypes = {

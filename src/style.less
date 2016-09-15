@@ -15,32 +15,121 @@
     border-right: 2px solid #ddd;
   }
 
-  .toolbar-menu {
+  .slate-toolbar-menu {
     padding: 1px 0 17px 18px;
     margin: 0 -20px;
     border-bottom: 2px solid #eee;
     margin-bottom: 20px;
   }
 
-  .hover-menu {
-    padding: 8px 7px 6px;
+  /* Sidebar */
+  .slate-sidebar {
+    margin-left: -2px;
+    color: white;
     position: absolute;
     z-index: 4;
-    top: -10000px;
-    left: -10000px;
-    margin-top: -6px;
     opacity: 0;
-    background-color: #222;
-    border-radius: 4px;
-    transition: opacity .75s;
   }
 
-  .hover-menu .button {
-    color: #aaa;
+  .slate-sidebar-item {
+    cursor: pointer;
+    white-space: nowrap;
   }
 
-  .hover-menu .button[data-active="true"] {
+  .slate-sidebar-item:hover {
+    color: limegreen;
+  }
+
+  .slate-sidebar-menu {
+    display: none;
+    position: absolute;
+    border: none;
+    border-radius: 3px;
+    border-top-left-radius: 0px;
+    padding: 5px;
+    font-size: 16px;
+    /* width: 32px; */
+    background-image: linear-gradient(180deg,rgb(70, 70, 70),#151515);
+  }
+
+  .fa.slate-sidebar-icon {
+    border-radius: 20px;
+    border-bottom-right-radius: 0px;
+    cursor: default;
+    padding: 7px 7px;
+    width: 24px;
+    height: 24px;
+    background-image: linear-gradient(0deg, #464646, #1d1d1d);
+    font-size: 12px;
+  }
+
+  .slate-sidebar:hover .slate-sidebar-icon {
+    border-bottom-left-radius: 0px;
+    color: limegreen;
+  }
+
+  .slate-sidebar:hover .slate-sidebar-menu, .slate-sidebar-menu:hover {
+    display: block
+  }
+
+  /* Toolbar */
+  .slate-toolbar {
+    position: absolute;
+    z-index: 4;
+    opacity: 0;
+    margin-top: -6px;
     color: #fff;
+    cursor: auto;
+    border-radius: 5px;
+    // transition: all .1s ease;
+    background-image: linear-gradient(180deg,rgb(70, 70, 70),#151515);
+    &:after {
+      top: 100%;
+      left: 50%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+      // border-color: #151515;
+      border-top-color: #151515;
+      border-width: 5px;
+      margin-left: -5px;
+    }
+  }
+
+  .slate-toolbar .slate-toolbar-item {
+    cursor: pointer;
+    display: inline-block;
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+
+  [data-active=true], .slate-toolbar .slate-toolbar-item:hover {
+    color: limegreen;
+  }
+
+  [data-block-active=true] {
+    outline: 3px solid black;
+  }
+
+  /* Resize */
+  .react-resizable-handle {
+    z-index: 4;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    bottom: 0;
+    right: 0;
+    // background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/…yIDAgTCA2IDAgTCA2IDYgTCA2IDYgWiIgZmlsbD0iIzAwMDAwMCIvPg0JPC9nPg08L3N2Zz4=');
+    background-color: black;
+    background-position: bottom right;
+    padding: 0 3px 3px 0;
+    background-repeat: no-repeat;
+    background-origin: content-box;
+    box-sizing: border-box;
+    cursor: se-resize;
   }
 
   /* Tooltip */
@@ -74,101 +163,5 @@
 
   [data-tooltip]:hover:after, a:hover:before {
     opacity: 1;
-  }
-
-  /* Sidebar */
-  .sidebar {
-    margin-left: -2px;
-    color: white;
-    position: absolute;
-    z-index: 4;
-    opacity: 0;
-  }
-
-  .sidebar-item {
-    cursor: pointer;
-    white-space: nowrap;
-  }
-
-  .sidebar-item:hover {
-    color: limegreen;
-  }
-
-  .sidebar-menu {
-    display: none;
-    position: absolute;
-    border: none;
-    border-radius: 3px;
-    border-top-left-radius: 0px;
-    padding: 5px;
-    font-size: 16px;
-    /* width: 32px; */
-    background-image: linear-gradient(180deg,rgb(70, 70, 70),#151515);
-  }
-
-  .fa.sidebar-icon {
-    border-radius: 20px;
-    border-bottom-right-radius: 0px;
-    cursor: default;
-    padding: 7px 7px;
-    width: 14px;
-    height: 14px;
-    background-image: linear-gradient(0deg, #464646, #1d1d1d);
-    font-size: 12px;
-  }
-
-  .sidebar:hover .sidebar-icon {
-    border-bottom-left-radius: 0px;
-    color: limegreen;
-  }
-
-  .sidebar:hover .sidebar-menu, .sidebar-menu:hover {
-    display: block
-  }
-
-  /* Toolbar */
-  .toolbar {
-    position: absolute;
-    z-index: 4;
-    opacity: 0;
-    margin-top: -6px;
-    color: #fff;
-    cursor: auto;
-    border-radius: 5px;
-    // transition: all .1s ease;
-    background-image: linear-gradient(180deg,rgb(70, 70, 70),#151515);
-    &:after {
-      top: 100%;
-      left: 50%;
-      border: solid transparent;
-      content: " ";
-      height: 0;
-      width: 0;
-      position: absolute;
-      pointer-events: none;
-      // border-color: #151515;
-      border-top-color: #151515;
-      border-width: 5px;
-      margin-left: -5px;
-    }
-  }
-
-  .toolbar .toolbar-item {
-    cursor: pointer;
-    display: inline-block;
-    padding: 6px 10px;
-    font-size: 14px;
-  }
-
-  [data-active=true], .toolbar .toolbar-item:hover {
-    color: limegreen;
-  }
-
-  [data-block-active=true] {
-    outline: 3px solid black;
-  }
-
-  .react-resizable-handle {
-    z-index: 4;
   }
 }

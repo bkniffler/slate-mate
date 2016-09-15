@@ -2,8 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import Portal from 'react-portal';
 import ReactDOM from 'react-dom';
 
-export default ({ actions, manual }) => Block => {
-  if (!actions) actions = []; // eslint-disable-line
+export default (options = {}) => Block => {
+  let { actions, manual } = options;
+  if (!actions) actions = () => [];
   return class BlockToolbarDecorator extends Component {
     static propTypes = {
       isFocused: PropTypes.bool,
@@ -42,7 +43,7 @@ export default ({ actions, manual }) => Block => {
     renderToolbar = () => {
       const allActions = [...this.props.actions, ...actions(this.props)];
       return (
-        <Portal onOpen={this.onOpen} isOpened key="toolbar-0">
+        <Portal onOpen={this.onOpen} isOpened={!!allActions.length} key="toolbar-0">
           <div className="toolbar">
             {allActions.map(({ toggle, type, active, icon }) => (
               <span key={type} className="toolbar-item" onMouseDown={this.onClick(toggle)} data-active={active}>
