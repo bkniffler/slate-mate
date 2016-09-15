@@ -4,6 +4,7 @@ const port = process.env.PORT || 3030;
 const devPort = port + 1;
 
 module.exports = () => ({
+  output: path.resolve(__dirname, 'docs'),
   port: port,
   root: path.resolve(__dirname),
   app: path.resolve(__dirname, 'app', 'app.js'),

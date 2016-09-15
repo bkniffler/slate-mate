@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "node server",
-    "build": "NODE_ENV=production node server",
+    "build": "node build",
     "patch": "npm version patch --force & npm publish",
     "stats": "analyze-bundle-size stats.json",
     "watch": "gulp watch"
