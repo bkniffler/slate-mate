@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { useBlockBase, useBlockResize, useBlockAlign, useBlockToolbar } from 'slate-mate';
 
-const defaultImage = '/whoa.jpg';
+const defaultImage = 'whoa.jpg';
 const actions = props => [{
   type: 'image.src',
   icon: 'picture-o',
