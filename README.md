@@ -22,85 +22,28 @@ Most decorators will get options through decorator initialization arguments AND 
 - [align](https://github.com/bkniffler/slate-mate/blob/master/src/block-decorators/align.js) (set alignment toolbar-actions, provide alignment styles, expose `setAlignment` and `alignment` prop)
 - [resize](https://github.com/bkniffler/slate-mate/blob/master/src/block-decorators/resize.js) (make a block resizable, either with aspect ratio via `ratio` option or freely)
 
-## Example editor
-- [Editor](https://github.com/bkniffler/slate-mate/blob/master/docs/editor.js)
+## Structure
+- `/app` contains the example project with example blocks. That's what your app might look like!
+- `/src` contains the sourcecode for decorators and the ready-to-use editor, as well as .less styles
+
+## POIs
+- [Usage example](https://github.com/bkniffler/slate-mate/blob/master/app/app.js)
+- [Usage example](https://github.com/bkniffler/slate-mate/blob/master/app/app.js)
+- [youtube-block](https://github.com/bkniffler/slate-mate/blob/master/docs/youtube-block.js)
+
+## Example custom editor
+[editor](https://github.com/bkniffler/slate-mate/blob/master/src/editor/index.js)
 ```jsx
 import { Editor, Mark } from 'slate';
 import React, { Component, PropTypes } from 'react';
-import { withState, withSidebar, withToolbar, withAutoMarkdown, useBlocks } from 'slate-mate';
-
-const options = {
-  defaultNode: 'paragraph',
-  blockTypes: {
-    'youtube-block': YoutubeBlock,
-  },
-  toolbarMarks: [
-    { type: 'bold', icon: 'bold' },
-    { type: 'italic', icon: 'italic' },
-    { type: 'underlined', icon: 'underline' },
-    { type: 'code', icon: 'code' },
-  ],
-  toolbarTypes: [
-    { type: 'heading-one', icon: 'header' },
-    { type: 'heading-two', icon: 'header' },
-    { type: 'block-quote', icon: 'quote-left' },
-    { type: 'numbered-list', icon: 'list-ol' },
-    { type: 'bulleted-list', icon: 'list-ul' },
-  ],
-  sidebarTypes: [],
-  nodes: {
-    'block-quote': ({ children }) => <blockquote>{children}</blockquote>,
-    'bulleted-list': ({ children }) => <ul>{children}</ul>,
-    'numbered-list': ({ children, attributes }) => <ol {...attributes}>{children}</ol>,
-    'heading-one': ({ children }) => <h1>{children}</h1>,
-    'heading-two': ({ children }) => <h2>{children}</h2>,
-    'heading-three': ({ children }) => <h3>{children}</h3>,
-    'heading-four': ({ children }) => <h4>{children}</h4>,
-    'heading-five': ({ children }) => <h5>{children}</h5>,
-    'heading-six': ({ children }) => <h6>{children}</h6>,
-    'bulleted-list-item': ({ children }) => <li>{children}</li>,
-    'numbered-list-item': ({ children }) => <li>{children}</li>,
-  },
-  marks: {
-    bold: ({ children }) => <strong>{children}</strong>,
-    code: ({ children }) => <code>{children}</code>,
-    italic: ({ children }) => <em>{children}</em>,
-    underlined: ({ children }) => <u>{children}</u>,
-  },
-  getMarkdownType: (chars) => {
-    switch (chars) {
-      case '*':
-      case '-':
-      case '+': return 'bulleted-list-item';
-      case '>': return 'block-quote';
-      case '#': return 'heading-one';
-      case '##': return 'heading-two';
-      case '###': return 'heading-three';
-      case '####': return 'heading-four';
-      case '#####': return 'heading-five';
-      case '######': return 'heading-six';
-      case '1.': return 'numbered-list-item';
-      default: return null;
-    }
-  },
-};
+import { withState, withSidebar, withToolbar, withAutoMarkdown, useBlocks } from 'slate';
 
 @withState()
-@useBlocks(options)
-@withAutoMarkdown(options)
-@withToolbar(options)
-@withSidebar(options)
+@useBlocks()
+@withAutoMarkdown()
+@withToolbar()
+@withSidebar()
 export default class SlateEditor extends Component {
-  static propTypes = {
-    readOnly: PropTypes.bool,
-    children: PropTypes.node,
-    value: PropTypes.object,
-    onChange: PropTypes.func,
-    marks: PropTypes.object,
-    nodes: PropTypes.object,
-    autoMarkDownKeyDown: PropTypes.func,
-    plugins: PropTypes.array,
-  }
   render = () => {
     const { children, value, onChange, readOnly, marks, nodes, plugins } = this.props;
     return (
@@ -120,7 +63,8 @@ export default class SlateEditor extends Component {
 ```
 
 ## Example Youtube block
-- [youtube-block](https://github.com/bkniffler/slate-mate/blob/master/docs/youtube-block.js)
+[youtube-block](https://github.com/bkniffler/slate-mate/blob/master/app/blocks/youtube-block.js)
+
 ```jsx
 import React, { Component, PropTypes } from 'react';
 import { useBlockBase, useBlockResize, useBlockAlign, useBlockToolbar } from 'slate-mate';
@@ -143,14 +87,6 @@ const actions = props => [{
 @useBlockResize({ ratio: 7 / 4 })
 @useBlockToolbar({ actions })
 export default class YoutubeBlock extends Component {
-  static propTypes = {
-    children: PropTypes.node,
-    style: PropTypes.object,
-    className: PropTypes.string,
-    isFocused: PropTypes.bool,
-    attributes: PropTypes.object,
-    getData: PropTypes.func,
-  }
   render() {
     const { style, getData, className, children, isFocused, attributes } = this.props;
     const url = getData('url', defaultVideo);
