@@ -17,7 +17,7 @@ const actions = props => [{
 @useBlockBase()
 @useBlockAlign()
 @useBlockResize({ })
-@useBlockToolbar({ actions })
+@useBlockToolbar({ actions, showRemove: true })
 export default class ImageBlock extends Component {
   static propTypes = {
     children: PropTypes.node,

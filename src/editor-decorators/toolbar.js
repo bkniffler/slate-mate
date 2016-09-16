@@ -45,19 +45,19 @@ export default (options = {}) => {
     componentDidUpdate() {
       this.componentDidMount();
     }
-    onClickBlock = (e, type) => {
+    onClickBlock = (e, props) => {
       const { value, onChange } = this.props;
       e.preventDefault();
-      onChange(addBlock(value, type, defaultNode));
+      onChange(addBlock(value, props, defaultNode));
     }
-    renderBlockButton = ({ type, icon }) => {
+    renderBlockButton = (props) => {
       const { value } = this.props;
-      const isActive = hasBlock(value, type);
-      const onMouseDown = e => this.onClickBlock(e, type);
+      const isActive = hasBlock(value, props.type);
+      const onMouseDown = e => this.onClickBlock(e, props);
 
       return (
-        <span key={type} className="slate-toolbar-item" onMouseDown={onMouseDown} data-active={isActive}>
-          <i className={`fa fa-${icon}`} />
+        <span key={props.type} className="slate-toolbar-item" onMouseDown={onMouseDown} data-active={isActive}>
+          <i className={`fa fa-${props.icon}`} />
         </span>
       );
     }
@@ -72,14 +72,14 @@ export default (options = {}) => {
 
       this.props.onChange(value);
     }
-    renderMarkButton = ({ type, icon }) => {
+    renderMarkButton = (props) => {
       const { value } = this.props;
-      const isActive = hasMark(value, type);
-      const onMouseDown = e => this.onClickMark(e, type);
+      const isActive = hasMark(value, props.type);
+      const onMouseDown = e => this.onClickMark(e, props);
 
       return (
-        <span key={type} className="slate-toolbar-item" onMouseDown={onMouseDown} data-active={isActive}>
-          <i className={`fa fa-${icon}`} />
+        <span key={props.type} className="slate-toolbar-item" onMouseDown={onMouseDown} data-active={isActive}>
+          <i className={`fa fa-${props.icon}`} />
         </span>
       );
     }

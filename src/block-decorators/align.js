@@ -21,6 +21,7 @@ const getStyle = align => {
 export default (options = {}) => Block => {
   const { ratio, relative, actions } = options;
   return class AlignmentDecorator extends Component {
+    static slate = Block.slate;
     static propTypes = {
       getData: PropTypes.func,
       setData: PropTypes.func,

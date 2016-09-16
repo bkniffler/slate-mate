@@ -47,18 +47,19 @@ export default (options = {}) => {
     componentDidUpdate() {
       this.componentDidMount();
     }
-    onClickBlock = (e, type, atomic) => {
+    onClickBlock = (e, props) => {
       const { value, onChange } = this.props;
       e.preventDefault();
-      onChange(addBlock(value, type, defaultNode, atomic));
+      onChange(addBlock(value, props, defaultNode));
     }
-    renderButton = ({ type, atomic }) => {
+    renderButton = props => {
       const { value } = this.props;
-      const isActive = hasBlock(value, type);
-      const onMouseDown = e => this.onClickBlock(e, type, atomic);
+      const isActive = hasBlock(value, props.type);
+      const onMouseDown = e => this.onClickBlock(e, props);
+
       return (
-        <div onMouseDown={onMouseDown} data-active={isActive} key={type} className="slate-sidebar-item">
-          {type}
+        <div onMouseDown={onMouseDown} data-active={isActive} key={props.type} className="slate-sidebar-item">
+          {props.icon ? <i className={`fa fa-${props.icon}`} /> : null}{props.icon ? ' ' : null}{props.label || props.type}
         </div>
       );
     }

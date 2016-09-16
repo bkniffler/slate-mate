@@ -52,8 +52,8 @@ export default (options = {}) => {
       };
       const newSidebarTypes = [
         ...(sidebarTypes || []),
-        ...Object.keys(blockTypes).map(key => ({ type: key, icon: blockTypes[key].icon, atomic: true })),
-        ...Object.keys(this.props.blockTypes).map(key => ({ type: key, icon: this.props.blockTypes[key].icon, atomic: true })),
+        ...getSidebarTypes(blockTypes),
+        ...getSidebarTypes(this.props.blockTypes),
       ];
 
       return (
@@ -68,3 +68,10 @@ export default (options = {}) => {
     }
   };
 };
+
+const getSidebarTypes = blockTypes => {
+  return Object.keys(blockTypes).filter(key => {
+    const block = blockTypes[key];
+    return block.slate && block.slate.sidebar !== false;
+  }).map(type => ({ ...blockTypes[type].slate, type }));
+}

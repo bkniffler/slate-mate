@@ -3,9 +3,20 @@ import Portal from 'react-portal';
 import ReactDOM from 'react-dom';
 
 export default (options = {}) => Block => {
-  let { actions, manual } = options;
+  let { actions, manual, showRemove } = options;
   if (!actions) actions = () => [];
+  const removeAction = showRemove ? ({ editor, state, node }) => ([{
+    type: 'block.remove',
+    icon: 'trash-o',
+    toggle: () => {
+      let newState = state.transform().unsetSelection();
+      editor.onChange(
+        newState.removeNodeByKey(node.key).apply()
+      );
+    }
+  }]) : () => ([]);
   return class BlockToolbarDecorator extends Component {
+    static slate = Block.slate;
     static propTypes = {
       isFocused: PropTypes.bool,
       children: PropTypes.node,
@@ -41,12 +52,12 @@ export default (options = {}) => Block => {
       action();
     }
     renderToolbar = () => {
-      const allActions = [...this.props.actions, ...actions(this.props)];
+      const allActions = [...this.props.actions, ...actions(this.props), ...removeAction(this.props)];
       return (
         <Portal onOpen={this.onOpen} isOpened={!!allActions.length} key="toolbar-0">
-          <div className="toolbar">
+          <div className="slate-toolbar">
             {allActions.map(({ toggle, type, active, icon }) => (
-              <span key={type} className="toolbar-item" onMouseDown={this.onClick(toggle)} data-active={active}>
+              <span key={type} className="slate-toolbar-item" onMouseDown={this.onClick(toggle)} data-active={active}>
                 <i className={`fa fa-${icon}`} />
               </span>
             ))}

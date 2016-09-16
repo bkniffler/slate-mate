@@ -8,6 +8,7 @@ const Cover = ({ children, style }) => (
 export default (options = {}) => Block => {
   const { ratio, relative, coverOnResize } = options;
   return class ResizeableDecorator extends Component {
+    static slate = Block.slate;
     static propTypes = {
       getData: PropTypes.func,
       setData: PropTypes.func,
