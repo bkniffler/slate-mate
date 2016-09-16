@@ -27,5 +27,4 @@ build
 .gitattributes
 test/
 example/
-
 data.db
