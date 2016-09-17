@@ -1,19 +1,49 @@
 import React, { Component, PropTypes } from 'react';
 import Portal from 'react-portal';
 import ReactDOM from 'react-dom';
+import classNames from 'classnames';
 
 export default (options = {}) => Block => {
-  let { actions, manual, showRemove } = options;
+  let { actions, manual, remove, move } = options;
   if (!actions) actions = () => [];
-  const removeAction = showRemove ? ({ editor, state, node }) => ([{
+  const removeAction = remove ? ({ editor, state, node }) => ([{
     type: 'block.remove',
     icon: 'trash-o',
+    separated: true,
     toggle: () => {
       let newState = state.transform().unsetSelection();
       editor.onChange(
         newState.removeNodeByKey(node.key).apply()
       );
-    }
+    },
+  }]) : () => ([]);
+  const moveAction = move ? ({ editor, state, node }) => ([{
+    type: 'block.moveUp',
+    icon: 'arrow-up',
+    separated: true,
+    toggle: () => {
+      const { document } = state;
+      const parent = document.getParent(node);
+      const index = parent.nodes.indexOf(node) - 1;
+      let newState = state
+        .transform()
+        .moveNodeByKey(node, parent, index === -1 ? 0 : index)
+        .apply();
+      editor.onChange(newState);
+    },
+  }, {
+    type: 'block.moveDown',
+    icon: 'arrow-down',
+    toggle: () => {
+      const { document } = state;
+      const parent = document.getParent(node);
+      const index = parent.nodes.indexOf(node) + 1;
+      let newState = state
+        .transform()
+        .moveNodeByKey(node, parent, index > parent.nodes.count() ? parent.nodes.count() : index)
+        .apply();
+      editor.onChange(newState);
+    },
   }]) : () => ([]);
   return class BlockToolbarDecorator extends Component {
     static slate = Block.slate;
@@ -52,12 +82,12 @@ export default (options = {}) => Block => {
       action();
     }
     renderToolbar = () => {
-      const allActions = [...this.props.actions, ...actions(this.props), ...removeAction(this.props)];
+      const allActions = [...this.props.actions, ...actions(this.props), ...removeAction(this.props), ...moveAction(this.props)];
       return (
         <Portal onOpen={this.onOpen} isOpened={!!allActions.length} key="toolbar-0">
           <div className="slate-toolbar">
-            {allActions.map(({ toggle, type, active, icon }) => (
-              <span key={type} className="slate-toolbar-item" onMouseDown={this.onClick(toggle)} data-active={active}>
+            {allActions.map(({ toggle, type, active, icon, separated }) => (
+              <span key={type} className={classNames('slate-toolbar-item', { separated })} onMouseDown={this.onClick(toggle)} data-active={active}>
                 <i className={`fa fa-${icon}`} />
               </span>
             ))}
