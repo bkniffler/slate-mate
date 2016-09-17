@@ -18,7 +18,7 @@ export default {
           "kind": "text",
           "ranges": [
             {
-              "text": "Try adding blocks, resizing elements, toolbars, whatever. WIP, buggy, tested with chrome.",
+              "text": "Try adding blocks, resizing elements, start lines with '#', '>', '-' or '1.'. WIP!",
               "marks": [
                 {
                   "type": "bold"
