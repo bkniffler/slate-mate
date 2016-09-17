@@ -6,45 +6,6 @@ import classNames from 'classnames';
 export default (options = {}) => Block => {
   let { actions, manual, remove, move } = options;
   if (!actions) actions = () => [];
-  const removeAction = remove ? ({ editor, state, node }) => ([{
-    type: 'block.remove',
-    icon: 'trash-o',
-    separated: true,
-    toggle: () => {
-      let newState = state.transform().unsetSelection();
-      editor.onChange(
-        newState.removeNodeByKey(node.key).apply()
-      );
-    },
-  }]) : () => ([]);
-  const moveAction = move ? ({ editor, state, node }) => ([{
-    type: 'block.moveUp',
-    icon: 'arrow-up',
-    separated: true,
-    toggle: () => {
-      const { document } = state;
-      const parent = document.getParent(node);
-      const index = parent.nodes.indexOf(node) - 1;
-      let newState = state
-        .transform()
-        .moveNodeByKey(node, parent, index === -1 ? 0 : index)
-        .apply();
-      editor.onChange(newState);
-    },
-  }, {
-    type: 'block.moveDown',
-    icon: 'arrow-down',
-    toggle: () => {
-      const { document } = state;
-      const parent = document.getParent(node);
-      const index = parent.nodes.indexOf(node) + 1;
-      let newState = state
-        .transform()
-        .moveNodeByKey(node, parent, index > parent.nodes.count() ? parent.nodes.count() : index)
-        .apply();
-      editor.onChange(newState);
-    },
-  }]) : () => ([]);
   return class BlockToolbarDecorator extends Component {
     static slate = Block.slate;
     static propTypes = {
@@ -82,7 +43,12 @@ export default (options = {}) => Block => {
       action();
     }
     renderToolbar = () => {
-      const allActions = [...this.props.actions, ...actions(this.props), ...removeAction(this.props), ...moveAction(this.props)];
+      // Get actions from props and from decorator arguments
+      const allActions = [...this.props.actions, ...actions(this.props)];
+      // Add remove action if (remove = true)
+      if (remove) allActions.push(removeAction);
+      // Add move up/down actions if (move = true)
+      if (move) moveActions.forEach(action => allActions.push(action));
       return (
         <Portal onOpen={this.onOpen} isOpened={!!allActions.length} key="toolbar-0">
           <div className="slate-toolbar">
@@ -111,3 +77,46 @@ export default (options = {}) => Block => {
     }
   };
 };
+
+// Toolbar action to remove a block
+const removeAction = ({ editor, state, node }) => ({
+  type: 'block.remove',
+  icon: 'trash-o',
+  separated: true,
+  toggle: () => {
+    let newState = state.transform().unsetSelection();
+    editor.onChange(
+      newState.removeNodeByKey(node.key).apply()
+    );
+  },
+});
+
+// Toolbar actions to move a block up/down
+const moveActions = ({ editor, state, node }) => ([{
+  type: 'block.moveUp',
+  icon: 'arrow-up',
+  separated: true,
+  toggle: () => {
+    const { document } = state;
+    const parent = document.getParent(node);
+    const index = parent.nodes.indexOf(node) - 1;
+    let newState = state
+      .transform()
+      .moveNodeByKey(node, parent, index === -1 ? 0 : index)
+      .apply();
+    editor.onChange(newState);
+  },
+}, {
+  type: 'block.moveDown',
+  icon: 'arrow-down',
+  toggle: () => {
+    const { document } = state;
+    const parent = document.getParent(node);
+    const index = parent.nodes.indexOf(node) + 1;
+    let newState = state
+      .transform()
+      .moveNodeByKey(node, parent, index > parent.nodes.count() ? parent.nodes.count() : index)
+      .apply();
+    editor.onChange(newState);
+  },
+}]);
