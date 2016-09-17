@@ -46,9 +46,9 @@ export default (options = {}) => Block => {
       // Get actions from props and from decorator arguments
       const allActions = [...this.props.actions, ...actions(this.props)];
       // Add remove action if (remove = true)
-      if (remove) allActions.push(removeAction);
+      if (remove) allActions.push(removeAction(this.props));
       // Add move up/down actions if (move = true)
-      if (move) moveActions.forEach(action => allActions.push(action));
+      if (move) moveActions(this.props).forEach(action => allActions.push(action));
       return (
         <Portal onOpen={this.onOpen} isOpened={!!allActions.length} key="toolbar-0">
           <div className="slate-toolbar">
