@@ -12,8 +12,8 @@ The purpose of this library is to provide a ready-to-use editor, as well as easy
 Most decorators will get options through decorator initialization arguments AND through the props.
 - [state](https://github.com/bkniffler/slate-mate/blob/master/src/editor-decorators/state.js) (accept a raw json value, manages state, calls onChange)
 - [block](https://github.com/bkniffler/slate-mate/blob/master/src/editor-decorators/blocks.js) (adds empty lines after blocks, accept 'blockTypes'-object through props and use it to construct schema nodes and sidebar items)
-- [toolbar](https://github.com/bkniffler/slate-mate/blob/master/src/editor-decorators/toolbar.js) (medium like inline toolbar)
-- [sidebar](https://github.com/bkniffler/slate-mate/blob/master/src/editor-decorators/sidebar.js) (+ on the side of empty lines to add atomic blocks)
+- [toolbar](https://github.com/bkniffler/slate-mate/blob/master/src/editor-decorators/toolbar.js) (medium like inline toolbar, injects toolbar to children props)
+- [sidebar](https://github.com/bkniffler/slate-mate/blob/master/src/editor-decorators/sidebar.js) (+ on the side of empty lines to add atomic blocks, injects sidebar to children props)
 - [auto-markdown](https://github.com/bkniffler/slate-mate/blob/master/src/editor-decorators/auto-markdown.js) (initialize lists with '-' or titles with '#')
 
 ## Block decorators
