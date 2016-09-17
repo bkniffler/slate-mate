@@ -17,7 +17,7 @@ const actions = props => [{
 @useBlockBase()
 @useBlockAlign()
 @useBlockResize({ ratio: 7 / 4, coverOnResize: true })
-@useBlockToolbar({ actions, showRemove: true })
+@useBlockToolbar({ actions, remove: true, move: true })
 export default class YoutubeBlock extends Component {
   static propTypes = {
     children: PropTypes.node,
