@@ -50,7 +50,7 @@ export default (options = {}) => {
     onClickBlock = (e, props) => {
       const { value, onChange } = this.props;
       e.preventDefault();
-      onChange(addBlock(value, props, defaultNode));
+      onChange(addBlock(value, props, { defaultNode, ...this.props }));
     }
     renderButton = props => {
       const { value } = this.props;

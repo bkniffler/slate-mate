@@ -17,11 +17,12 @@ export default class SlateEditor extends Component {
     nodes: PropTypes.object,
     autoMarkDownKeyDown: PropTypes.func,
     plugins: PropTypes.array,
+    className: PropTypes.string,
   }
   render = () => {
-    const { children, value, onChange, readOnly, marks, nodes, plugins } = this.props;
+    const { children, value, onChange, readOnly, marks, nodes, plugins, className } = this.props;
     return (
-      <div className="editor">
+      <div className={className}>
         {children}
         <Editor
           readOnly={readOnly}

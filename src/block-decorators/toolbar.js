@@ -64,7 +64,7 @@ export default (options = {}) => Block => {
     render() {
       const { isFocused } = this.props;
       const children = isFocused
-        ? [this.props.children, this.renderToolbar()]
+        ? [...this.props.children, this.renderToolbar()]
         : this.props.children;
 
       return (

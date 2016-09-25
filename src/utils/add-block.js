@@ -1,6 +1,8 @@
 import { hasBlock } from './has';
 
-export default (value, { type, isVoid, isAtomic }, defaultNode = 'paragraph') => {
+export default (value, { type, isVoid, isAtomic, defaultNodes }, { defaultNode }) => {
+  if (!defaultNode) defaultNode = 'paragraph';
+
   let transform = value.transform();
   const { document, blocks } = value;
 
@@ -15,7 +17,8 @@ export default (value, { type, isVoid, isAtomic }, defaultNode = 'paragraph') =>
         .unwrapBlock('bulleted-list')
         .unwrapBlock('numbered-list');
     } else if (isAtomic) {
-      transform = transform.insertBlock({ type, isVoid, data: { } });
+      console.log(defaultNodes);
+      transform = transform.insertBlock({ type, isVoid, data: { }, nodes: defaultNodes });
     } else {
       transform = transform.setBlock(isActive ? defaultNode : type);
     }

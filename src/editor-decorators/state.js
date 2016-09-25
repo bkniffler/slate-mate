@@ -12,6 +12,7 @@ const defaultChangeValue = ({ onChange }, value) => onChange ? onChange(value) :
 export default (getValue = defaultGetValue, changeValue = defaultChangeValue, opt = {}) => {
   return Editor => class SlateStateDecorator extends Component {
     static propTypes = { }
+    isFocused = false;
     batch = batch(300);
     rawValue = null;
 

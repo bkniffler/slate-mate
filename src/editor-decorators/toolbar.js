@@ -62,6 +62,7 @@ export default (options = {}) => {
       );
     }
     onClickMark = (e, type) => {
+      e.stopPropagation();
       e.preventDefault();
       let { value } = this.props;
 
@@ -92,7 +93,7 @@ export default (options = {}) => {
       // const isOpen = editorState.isExpanded && editorState.isFocused;
       return (
         <Portal isOpened onOpen={this.onOpen} key="toolbar-0">
-          <div className="slate-toolbar">
+          <div className="slate-toolbar slate-text-toolbar">
             {theToolbarMarks.map(this.renderMarkButton)}
             {theToolbarTypes.map(this.renderBlockButton)}
           </div>

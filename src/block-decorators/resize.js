@@ -32,14 +32,14 @@ export default (options = {}) => Block => {
     onResizeStart = () => {
       this.setState({ resize: true, ...this.getSize() });
     }
-    onResizeStop = (event, { node, deltaX, deltaY }) => {
+    onResizeStop = (event, { deltaX, deltaY }) => {
       const { setData } = this.props;
       const width = this.state.width + deltaX;
       const height = this.state.height + deltaY;
       setData({ width, height });
       this.setState({ resize: false, width: null, height: null });
     }
-    onResize = (event, { node, deltaX, deltaY }) => {
+    onResize = (event, { deltaX, deltaY }) => {
       const width = this.state.width + deltaX;
       const height = this.state.height + deltaY;
       this.setState(this.getSize({ width, height }));
@@ -54,8 +54,8 @@ export default (options = {}) => Block => {
         width: `${width}px`,
       };
 
-      const children = editor.readOnly ? this.props.children : [
-        this.props.children,
+      const children = editor.props.readOnly ? this.props.children : [
+        ...this.props.children,
         resize && coverOnResize ? <Cover key="resizableCover" style={style} children={children} /> : null,
         <DraggableCore
           key="resizableHandle"
