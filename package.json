@@ -1,6 +1,6 @@
 {
   "name": "slate-mate",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "",
   "main": "./lib",
   "engines": {
@@ -19,13 +19,14 @@
     "url": "https://github.com/cryogon/powr.git"
   },
   "dependencies": {
-    "slate": "^0.14.8",
     "react-draggable": "^2.2.2",
-    "react-portal": "^1.0.0"
+    "react-frame-aware-selection-plugin": "^0.0.5",
+    "react-portal": "^2.2.1",
+    "slate": "^0.14.15"
   },
   "peerDependencies": {
-    "react": "^15.0.0",
-    "react-dom": "^15.0.0"
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2"
   },
   "author": "",
   "license": "MIT"
