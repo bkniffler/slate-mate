@@ -1,12 +1,8 @@
 {
   "name": "slate-mate",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "main": "./lib",
-  "engines": {
-    "node": "5.x.x",
-    "npm": "3.x.x"
-  },
   "scripts": {
     "start": "node server",
     "build": "node build",
